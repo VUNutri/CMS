@@ -1,2 +1,2 @@
 # CMS
-Content Managment System of Nutri Apps
+Content Managment System of Nutri App
