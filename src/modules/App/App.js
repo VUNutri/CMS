@@ -1,13 +1,39 @@
-import React from 'react';
-import { BrowserRouter as Router } from 'react-router-dom';
-import './App.css';
+import { LinkContainer } from "react-router-bootstrap";
+import React, { Component } from "react";
+import { Link } from "react-router-dom";
+import { Nav, Navbar, NavItem } from "react-bootstrap";
+import Routes from "../../Routes";
+import "./App.css";
 
-const App = () => (
-  <Router>
-    <div className="App">
-      <p>Nutri CMS APP Strater</p>
+
+class App extends Component {
+render() {
+  return (
+    <div className="App container">
+      <Navbar fluid collapseOnSelect>
+        <Navbar.Header>
+          <Navbar.Brand>
+            <Link to="/">CMS</Link>
+          </Navbar.Brand>
+          <Navbar.Toggle />
+        </Navbar.Header>
+        <Navbar.Collapse>
+          <Nav pullRight>
+            <LinkContainer to="/products">
+            <NavItem>Product</NavItem> 
+            </LinkContainer>
+            <LinkContainer to="/recipes">
+            <NavItem>Recipe</NavItem>
+            </LinkContainer> 
+
+          </Nav>
+        </Navbar.Collapse>
+      </Navbar>
+      <Routes />
     </div>
-  </Router>
-);
+  );
+}
+
+}
 
 export default App;
