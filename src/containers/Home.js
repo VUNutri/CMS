@@ -7,15 +7,21 @@ export default class Home extends Component {
     return (
       <div className="Home">
         <div className="lander">
-          <h1>PATIEKALAI:</h1>
+          <h1>Receptai:</h1>
           <ul className="list-group text-left">
-          <ListItem name="Patiekalas A" type="Pusryciai" />
-          <ListItem name="Patiekalas B" type="Pietus" />
-          <ListItem name="Patiekalas C" type="Vakariene" />
-          <ListItem name="Patiekalas D" type="Uzkandziai" />
-          <ListItem name="Patiekalas E" type="Dar kazkas" />
-          <ListItem name="Patiekalas F" type="Dar eilinis propsas" />
-          <ListItem name="Patiekalas G" type="Propsi props" />
+          <ListItem name="Patiekalas A" type="Pusryčiai" />
+          <br></br>
+          <ListItem name="Patiekalas B" type="Pietūs" />
+          <br></br>
+          <ListItem name="Patiekalas C" type="Vakarienė" />
+          <br></br>
+          <ListItem name="Patiekalas D" type="Uzkandžiai" />
+          <br></br>
+          <ListItem name="Patiekalas E" type="Pavakariai" />
+          <br></br>
+          <ListItem name="Patiekalas F" type="Priešpiečiai" />
+          <br></br>
+          <ListItem name="Patiekalas G" type="Naktipiečiai" />
         </ul>
         </div>
       </div>

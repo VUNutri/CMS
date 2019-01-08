@@ -4,11 +4,15 @@ import Home from "./containers/Home";
 import NotFound from "./containers/NotFound";
 import Product from "./containers/Product";
 import Recipe from "./containers/Recipe"
+import Login from "./containers/Login";
+import AppliedRoute from "./containers/AppliedRoute";
 
-export default () =>
+export default ({ childProps }) =>
   <Switch>
-    <Route path="/" exact component={Home} />
-    <Route path="/products" exact component={Product} />
-    <Route path="/recipes" exact component={Recipe} />
+    <AppliedRoute path="/" exact component={Home} props={childProps} /> />
+    <AppliedRoute path="/products" exact component={Product} props={childProps} />
+    <AppliedRoute path="/recipes" exact component={Recipe} props={childProps} />
+    <AppliedRoute path="/login" exact component={Login} props={childProps} />
+
     <Route component={NotFound} />
   </Switch>;

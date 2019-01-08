@@ -1,24 +1,29 @@
 import React, { Component } from "react";
+import axios from "axios";
 import { FormGroup, FormControl, ControlLabel } from "react-bootstrap";
 import LoaderButton from "../modules/App/LoaderButton";
-import config from "../config";
 import "./Product.css";
-//import  formInstance from "./Forms";
+import { delay } from "q";
 
 export default class Product extends Component {
   constructor(props) {
     super(props);
 
-    this.file = null;
+  
 
     this.state = {
       isLoading: null,
-      content: ""
+      title: "",
+      size: "",
+      calories: "",
+      carbs: "",
+      proteins: ""
+
     };
   }
 
   validateForm() {
-    return this.state.content.length > 0;
+    return this.state.title.length > 0 &&this.state.calories.length > 0 &&this.state.carbs.length > 0 &&this.state.proteins.length > 0 ;
   }
 
   handleChange = event => {
@@ -31,49 +36,89 @@ export default class Product extends Component {
     this.file = event.target.files[0];
   }
 
-  handleSubmit = async event => {
+  handleSubmit =  event  => {
     event.preventDefault();
-
-    if (this.file && this.file.size > config.MAX_ATTACHMENT_SIZE) {
-      alert(`Please pick a file smaller than ${config.MAX_ATTACHMENT_SIZE/1000000} MB.`);
-      return;
-    }
-
     this.setState({ isLoading: true });
+    
+    axios
+    .post(`http://35.177.42.215:8888/v1/api/products/create`,{
+      "title": String(this.state.title),
+      "size": String(this.state.size),
+      "calories": parseInt(this.state.calories,10),
+      "carbs": parseInt(this.state.carbs,10),
+      "proteins": parseInt(this.state.proteins,10)
+    })
+    .then(res=>{
+      console.log(res);
+      delay(2500);
+      this.setState({ isLoading: false });
+    })
+
+    
+    
+    .catch(error=>{
+      console.log(error);
+      
+    });
+  
+
+
+
+    
   }
 
   render() {
     return (
-      <div className="Product">
+      <div className="product">
         <ControlLabel>Produkto pavadinimas</ControlLabel>
         <br></br>
         <form onSubmit={this.handleSubmit}>
-          <FormGroup controlId="content">
+          <FormGroup controlId="title">
             <FormControl
               onChange={this.handleChange}
-              value={this.state.content}
-              componentClass="textarea"
+              value={this.state.product}
+              componentClass="input"
+            />
+               <FormGroup controlId="size">
+            <ControlLabel>Įveskite vienetą (g, mg, ml) </ControlLabel>
+            
+            <FormControl 
+             onChange={this.handleChange}
+            value={this.state.size}
+            componentClass="input"
+
             />
           </FormGroup>
-          <FormGroup controlId="file">
-            <ControlLabel>Produkto img</ControlLabel>
-            <FormControl onChange={this.handleFileChange} type="file" />
+          <FormGroup controlId="calories">
+            <ControlLabel>Kalorijų skaičius</ControlLabel>
+            
+            <FormControl 
+             onChange={this.handleChange}
+            value={this.state.calories}
+            componentClass="input"
+
+            />
           </FormGroup>
-          <br></br>
-          <FormGroup controlId="formControlsSelect">
-      <ControlLabel>Produkto grupe</ControlLabel>
-      <FormControl componentClass="select" placeholder="select">
-        <option value="select">select</option>
-        <option value="other">...</option>
-      </FormControl>
+    
+      <FormGroup controlId="carbs">
+            <ControlLabel>Angliavandenių skaičius</ControlLabel>
+            <FormControl 
+             onChange={this.handleChange}
+            value={this.state.carbs}
+            componentClass="input"
+            />
+          </FormGroup>
+          <FormGroup controlId="proteins">
+            <ControlLabel>Baltymų skaičius</ControlLabel>
+            <FormControl
+             onChange={this.handleChange}
+            value={this.state.proteins}
+            componentClass="input"
+            />
+          </FormGroup>
+          
     </FormGroup>
-    {/* <FormGroup controlId="formControlsSelectMultiple">
-      <ControlLabel>Multiple select</ControlLabel>
-      <FormControl componentClass="select" multiple>
-        <option value="select">select (multiple)</option>
-        <option value="other">...</option>
-      </FormControl>
-    </FormGroup> */}
+
     <br></br>
           <LoaderButton
             block
@@ -89,4 +134,5 @@ export default class Product extends Component {
       </div>
     );
   }
+
 }
